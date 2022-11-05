@@ -1,0 +1,51 @@
+services:
+  menel:
+    container_name: menel_local
+    image: menel_local_image
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.local
+    volumes:
+      - .:/usr/menel
+    env_file:
+      - .env.local
+    ports:
+      - 8000:8000
+      - 8001:8001
+    environment:
+      - MENEL_ENVIRONMENT=local
+      - ENV_FILE=.env.local
+    depends_on:
+      - postgres_local
+    restart: unless-stopped
+    command: ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+
+  postgres_local:
+    container_name: postgres_local
+    image: postgres:latest
+    volumes:
+      - postgres_local:/var/lib/postgresql/data/
+    env_file:
+      - .env.local
+    ports:
+      - 5432:5432
+    restart: unless-stopped
+
+  pgadmin_local:
+    container_name: pgadmin4_local
+    image: dpage/pgadmin4
+    ports:
+      - 5555:80
+    volumes:
+      - pgadmin4_local:/var/lib/pgadmin
+    env_file:
+      - .env.local
+    logging:
+      driver: "none"
+    depends_on:
+      - postgres_local
+    restart: unless-stopped
+
+volumes:
+  postgres_local:
+  pgadmin4_local:

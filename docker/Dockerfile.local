@@ -1,0 +1,49 @@
+# syntax=docker/dockerfile:1
+
+##################
+# Builder build
+##################
+FROM python:3.11.0-alpine3.16 as builder
+
+ARG MENEL_ENVIRONMENT
+
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+RUN apk add --update --no-cache --virtual .build-deps \
+    libffi-dev \
+    libpq-dev gcc \
+    musl-dev && \
+    pip install poetry psycopg2
+
+WORKDIR /usr/menel
+
+COPY poetry.lock pyproject.toml /usr/menel/
+
+RUN poetry config virtualenvs.create false \
+   && poetry install $(test "$MENEL_ENVIRONMENT" == production && echo "--no-dev") --no-interaction --no-ansi
+
+##################
+# Production build
+##################
+FROM python:3.11.0-alpine3.16 as prod
+
+ARG VERSION
+
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+ENV VERSION=${VERSION}
+ENV TZ=Europe/Helsinki
+
+RUN apk add --update --no-cache postgresql
+
+COPY --from=builder /usr/local/lib/python3.11/site-packages/ /usr/local/lib/python3.11/site-packages/
+COPY --from=builder /usr/local/bin/ /usr/local/bin/
+
+WORKDIR /usr/menel
+
+COPY . /usr/menel
+
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+ENTRYPOINT [ "./docker/postgres_entrypoint.sh" ]
