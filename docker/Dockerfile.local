@@ -16,9 +16,9 @@ RUN apk add --update --no-cache --virtual .build-deps \
     musl-dev && \
     pip install poetry psycopg2
 
-WORKDIR /usr/menel
+WORKDIR /usr/menel-backend
 
-COPY poetry.lock pyproject.toml /usr/menel/
+COPY poetry.lock pyproject.toml /usr/menel-backend/
 
 RUN poetry config virtualenvs.create false \
    && poetry install $(test "$MENEL_ENVIRONMENT" == production && echo "--no-dev") --no-interaction --no-ansi
@@ -40,9 +40,9 @@ RUN apk add --update --no-cache postgresql
 COPY --from=builder /usr/local/lib/python3.11/site-packages/ /usr/local/lib/python3.11/site-packages/
 COPY --from=builder /usr/local/bin/ /usr/local/bin/
 
-WORKDIR /usr/menel
+WORKDIR /usr/menel-backend
 
-COPY . /usr/menel
+COPY . /usr/menel-backend
 
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
