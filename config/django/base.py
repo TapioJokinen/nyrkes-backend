@@ -4,7 +4,9 @@ from config.env import BASE_DIR, env
 
 env.read_env(os.path.join(BASE_DIR, os.environ["ENV_FILE"]))
 
-LOCAL_APPS = []
+LOCAL_APPS = [
+    "menel",
+]
 
 THIRD_PARTY_APPS = []
 
@@ -86,3 +88,5 @@ USE_TZ = True
 STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+AUTH_USER_MODEL = "menel.User"
