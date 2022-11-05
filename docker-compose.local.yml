@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: docker/Dockerfile.local
     volumes:
-      - .:/usr/menel
+      - .:/usr/menel-backend
     env_file:
       - .env.local
     ports:
