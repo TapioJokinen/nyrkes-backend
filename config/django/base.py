@@ -107,7 +107,7 @@ SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
     "ROTATE_REFRESH_TOKENS": False,
-    "BLACKLIST_AFTER_ROTATION": False,
+    "BLACKLIST_AFTER_ROTATION": True,
     "UPDATE_LAST_LOGIN": False,
     "ALGORITHM": "HS256",
     "VERIFYING_KEY": None,
@@ -127,6 +127,7 @@ SIMPLE_JWT = {
     "SLIDING_TOKEN_REFRESH_EXP_CLAIM": "refresh_exp",
     "SLIDING_TOKEN_LIFETIME": timedelta(minutes=5),
     "SLIDING_TOKEN_REFRESH_LIFETIME": timedelta(days=1),
+    # These are not part of simplejwt package.
     "AUTH_COOKIE_KEY_REFRESH": "refresh_token",
     "AUTH_COOKIE_KEY_ACCESS": "access_token",
     "AUTH_COOKIE_MAX_AGE": 3600 * 24 * 7,  # timdelta object, seconds or None.
