@@ -1,0 +1,33 @@
+name: Run pull request checks
+
+on: [push, pull_request]
+
+jobs:
+  type-check:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Make envfile
+      run: |
+        touch .env
+        echo SECRET_KEY=foobar12345 >> .env
+        echo AUTH_SECRET_KEY=foobar12345 >> .env
+        echo POSTGRES_DB=nyrkes_local >> .env
+        echo POSTGRES_USER=admin >> .env
+        echo POSTGRES_PASSWORD=foobar12345 >> .env
+        echo POSTGRES_HOST=postgres_ci >> .env
+    - name: Build images
+      run: docker-compose -f .github/docker-compose.ci.yml up --build -d
+    - name: Run migrations
+      run: docker exec nyrkes_ci sh -c 'python manage.py migrate'
+    - name: Run black
+      run: docker exec nyrkes_ci sh -c 'black --line-length 119 --check .'
+    - name: Run isort
+      run: docker exec nyrkes_ci sh -c 'isort --check --diff .'
+    - name: Run flake8
+      run: docker exec nyrkes_ci sh -c 'flake8 .'
+    - name: Run pylint
+      run: docker exec nyrkes_ci sh -c 'pylint nyrkes/'
+    - name: Run tests
+      run: docker exec nyrkes_ci sh -c 'coverage run manage.py test && coverage report'
+
