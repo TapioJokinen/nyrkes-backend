@@ -1,8 +1,8 @@
 from rest_framework.response import Response
 
-from menel.api.base import MenelView
+from nyrkes.api.base import BaseAPIView
 
 
-class TestView(MenelView):
+class TestView(BaseAPIView):
     def get(self, request):
         return Response(200)

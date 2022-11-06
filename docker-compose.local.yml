@@ -1,19 +1,19 @@
 services:
-  menel:
-    container_name: menel_local
-    image: menel_local_image
+  nyrkes:
+    container_name: nyrkes_local
+    image: nyrkes_local_image
     build:
       context: .
       dockerfile: docker/Dockerfile.local
     volumes:
-      - .:/usr/menel-backend
+      - .:/usr/nyrkes-backend
     env_file:
       - .env.local
     ports:
       - 8000:8000
       - 8001:8001
     environment:
-      - MENEL_ENVIRONMENT=local
+      - NYRKES_ENVIRONMENT=local
       - ENV_FILE=.env.local
     depends_on:
       - postgres_local

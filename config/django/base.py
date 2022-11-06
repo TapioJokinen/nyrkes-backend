@@ -6,7 +6,7 @@ from config.env import BASE_DIR, env
 env.read_env(os.path.join(BASE_DIR, os.environ["ENV_FILE"]))
 
 LOCAL_APPS = [
-    "menel",
+    "nyrkes",
 ]
 
 THIRD_PARTY_APPS = [
@@ -93,10 +93,10 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-AUTH_USER_MODEL = "menel.User"
+AUTH_USER_MODEL = "nyrkes.User"
 
 REST_FRAMEWORK = {
-    "DEFAULT_AUTHENTICATION_CLASSES": ("menel.authentication.CookieAuthentication",),
+    "DEFAULT_AUTHENTICATION_CLASSES": ("nyrkes.authentication.CookieAuthentication",),
     "DEFAULT_VERSIONING_CLASS": "rest_framework.versioning.AcceptHeaderVersioning",
     "DEFAULT_VERSION": None,
     "ALLOWED_VERSIONS": ["1.0"],

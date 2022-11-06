@@ -1,10 +1,10 @@
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 
-from menel.api.exceptions import APINotImplemented
+from nyrkes.api.exceptions import APINotImplemented
 
 
-class MenelView(APIView):
+class BaseAPIView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):

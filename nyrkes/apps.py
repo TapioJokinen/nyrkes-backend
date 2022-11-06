@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class MenelConfig(AppConfig):
+class NyrkesConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
-    name = "menel"
+    name = "nyrkes"

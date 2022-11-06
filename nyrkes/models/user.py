@@ -1,9 +1,8 @@
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
-
-from menel.models import MenelModel
-from menel.utils.constants import Errors
+from nyrkes.models.base import BaseModel
+from nyrkes.utils.constants import Errors
 
 
 class UserManager(BaseUserManager):
@@ -48,7 +47,7 @@ class UserManager(BaseUserManager):
         return self.create_user(email, password, **extra_fields)
 
 
-class User(MenelModel, AbstractBaseUser, PermissionsMixin):
+class User(BaseModel, AbstractBaseUser, PermissionsMixin):
     """Models a single application user."""
 
     email = models.EmailField(unique=True)

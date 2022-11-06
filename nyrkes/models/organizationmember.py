@@ -1,10 +1,10 @@
 from django.conf import settings
 from django.db import models
 
-from menel.models import MenelModel
+from nyrkes.models.base import BaseModel
 
 
-class OrganizationMember(MenelModel):
+class OrganizationMember(BaseModel):
     """
     An OrganizationMember is a single application user who belongs to an Organization(s).
     """
@@ -15,7 +15,7 @@ class OrganizationMember(MenelModel):
     )
 
     organization = models.ForeignKey(
-        "menel.Organization",
+        "nyrkes.Organization",
         on_delete=models.CASCADE,
     )
 

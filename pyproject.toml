@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "menel"
+name = "nyrkes"
 version = "0.1.0"
 description = "It is a secret!"
 authors = ["Tapio Jokinen <tapio.jokinen@hotmail.com>"]
@@ -19,6 +19,8 @@ flake8 = "^5.0.4"
 
 [tool.poetry.group.dev.dependencies]
 debugpy = "^1.6.3"
+pylint = "^2.15.5"
+coverage = "^6.5.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
@@ -29,3 +31,13 @@ line-length = 119
 
 [tool.isort]
 profile = "black"
+
+[tool.pylint.messages_control]
+disable = [
+    "missing-docstring",
+    "line-too-long",            # Black handles this.
+    "too-few-public-methods",
+    "invalid-name",
+    "no-member",
+    "duplicate-code",
+]

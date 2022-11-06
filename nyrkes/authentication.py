@@ -1,15 +1,5 @@
 from django.conf import settings
-from rest_framework import exceptions
-from rest_framework.authentication import CSRFCheck
 from rest_framework_simplejwt.authentication import JWTAuthentication
-
-
-def enforce_csrf(request):
-    check = CSRFCheck()
-    check.process_request(request)
-    reason = check.process_view(request, None, (), {})
-    if reason:
-        raise exceptions.PermissionDenied("CSRF Failed: %s" % reason)
 
 
 # See: REST_FRAMEWORK["DEFAULT_AUTHENTICATION_CLASSES"] in base.py

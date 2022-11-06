@@ -6,12 +6,12 @@ from django.db import models
 from django.db.models import Q
 from django.db.models.functions import Length
 
-from menel.models import MenelManager, MenelModel
+from nyrkes.models.base import BaseManager, BaseModel
 
 models.CharField.register_lookup(Length)
 
 
-class OrganizationManager(MenelManager):
+class OrganizationManager(BaseManager):
     def create(self, **kwargs: Any) -> "Organization":
         """Create Organization.
 
@@ -19,12 +19,12 @@ class OrganizationManager(MenelManager):
         """
 
         org = super().create(**kwargs)
-        OrganizationMember = apps.get_model("menel", "OrganizationMember")
+        OrganizationMember = apps.get_model("nyrkes", "OrganizationMember")
         OrganizationMember.objects.create(user=kwargs["owner"], organization=org, invited_by=None)
         return org
 
 
-class Organization(MenelModel):
+class Organization(BaseModel):
     """An Organization represents a group of people."""
 
     name = models.CharField(
@@ -43,7 +43,7 @@ class Organization(MenelModel):
     )
     members = models.ManyToManyField(
         settings.AUTH_USER_MODEL,
-        through="menel.OrganizationMember",
+        through="nyrkes.OrganizationMember",
         related_name="org_members",
         through_fields=("organization", "user"),
     )
