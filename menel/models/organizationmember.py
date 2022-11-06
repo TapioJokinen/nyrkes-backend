@@ -6,7 +6,7 @@ from menel.models import MenelModel
 
 class OrganizationMember(MenelModel):
     """
-    An OrganizationMember is a single application user who belongs to an Organization.
+    An OrganizationMember is a single application user who belongs to an Organization(s).
     """
 
     user = models.ForeignKey(

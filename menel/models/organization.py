@@ -15,7 +15,7 @@ class OrganizationManager(MenelManager):
     def create(self, **kwargs: Any) -> "Organization":
         """Create Organization.
 
-        Organization owner will also be added as member of the Organization.
+        The Organization owner will also be added as member of the Organization.
         """
 
         org = super().create(**kwargs)
@@ -25,10 +25,7 @@ class OrganizationManager(MenelManager):
 
 
 class Organization(MenelModel):
-    """An Organization represents a group of people.
-
-    The members of an Organization can fulfill tasks either alone or in Squads.
-    """
+    """An Organization represents a group of people."""
 
     name = models.CharField(
         max_length=100,
