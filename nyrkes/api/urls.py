@@ -1,4 +1,5 @@
 from django.urls import path
+
 from nyrkes.api.views.test import TestView
 
 urlpatterns = [

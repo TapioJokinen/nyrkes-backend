@@ -1,14 +1,15 @@
 from django.conf import settings
-from nyrkes.api.serializers.token import (
-    CookieTokenBlacklistSerializer,
-    CookieTokenRefreshSerializer,
-    CookieTokenVerifySerializer,
-)
 from rest_framework_simplejwt.views import (
     TokenBlacklistView,
     TokenObtainPairView,
     TokenRefreshView,
     TokenVerifyView,
+)
+
+from nyrkes.api.serializers.token import (
+    CookieTokenBlacklistSerializer,
+    CookieTokenRefreshSerializer,
+    CookieTokenVerifySerializer,
 )
 
 
