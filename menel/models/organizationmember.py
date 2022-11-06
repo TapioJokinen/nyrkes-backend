@@ -19,16 +19,5 @@ class OrganizationMember(MenelModel):
         on_delete=models.CASCADE,
     )
 
-    invited_by = models.ForeignKey(
-        "menel.OrganizationMember",
-        null=True,
-        on_delete=models.SET_NULL,
-    )
-
-    class Meta:
-        constraints = [
-            models.UniqueConstraint(name="user_organization_unique", fields=["user", "organization"]),
-        ]
-
     def __str__(self) -> str:
         return f"{self.user}"
