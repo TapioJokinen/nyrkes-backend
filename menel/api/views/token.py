@@ -1,7 +1,16 @@
 from django.conf import settings
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from rest_framework_simplejwt.views import (
+    TokenBlacklistView,
+    TokenObtainPairView,
+    TokenRefreshView,
+    TokenVerifyView,
+)
 
-from menel.api.serializers.token import CookieTokenRefreshSerializer
+from menel.api.serializers.token import (
+    CookieTokenBlacklistSerializer,
+    CookieTokenRefreshSerializer,
+    CookieTokenVerifySerializer,
+)
 
 
 class CookieTokenObtainPairView(TokenObtainPairView):
@@ -60,3 +69,11 @@ class CookieTokenRefreshView(TokenRefreshView):
         return super().finalize_response(request, response, *args, **kwargs)
 
     serializer_class = CookieTokenRefreshSerializer
+
+
+class CookieTokenVerifyView(TokenVerifyView):
+    serializer_class = CookieTokenVerifySerializer
+
+
+class CookieTokenBlacklistView(TokenBlacklistView):
+    serializer_class = CookieTokenBlacklistSerializer
