@@ -20,7 +20,7 @@ class OrganizationManager(BaseManager):
 
         org = super().create(**kwargs)
         OrganizationMember = apps.get_model("nyrkes", "OrganizationMember")
-        OrganizationMember.objects.create(user=kwargs["owner"], organization=org, invited_by=None)
+        OrganizationMember.objects.create(user=kwargs["owner"], organization=org)
         return org
 
 
