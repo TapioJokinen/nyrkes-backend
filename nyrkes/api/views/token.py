@@ -38,6 +38,7 @@ class CookieTokenObtainPairView(TokenObtainPairView):
                 secure=settings.SIMPLE_JWT["AUTH_COOKIE_SECURE"],
             )
             del response.data["access"]
+
         return super().finalize_response(request, response, *args, **kwargs)
 
 
