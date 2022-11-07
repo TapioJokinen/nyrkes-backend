@@ -34,10 +34,10 @@ profile = "black"
 
 [tool.pylint.messages_control]
 disable = [
-    "missing-docstring",
-    "line-too-long",            # Black handles this.
-    "too-few-public-methods",
-    "invalid-name",
-    "no-member",
-    "duplicate-code",
+    "missing-docstring",            # We don't need this
+    "line-too-long",                # Black handles this.
+    "duplicate-code",               # This is judged manually.
+    "abstract-method",              # This is judged manually.
+    "too-few-public-methods",       # Doesn't work well with models.
+    "invalid-name",                 # For e.g. OrganizationMember = apps.get_model("nyrkes", "OrganizationMember")
 ]
