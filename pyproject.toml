@@ -10,6 +10,7 @@ Django = "^4.1.3"
 python-environ = "^0.4.54"
 djangorestframework = "^3.14.0"
 djangorestframework-simplejwt = "^5.2.2"
+django-cors-headers = "^3.13.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
@@ -40,4 +41,6 @@ disable = [
     "abstract-method",              # This is judged manually.
     "too-few-public-methods",       # Doesn't work well with models.
     "invalid-name",                 # For e.g. OrganizationMember = apps.get_model("nyrkes", "OrganizationMember")
+    "wildcard-import",              # Used in settings files
+    "unused-wildcard-import         # Used in settings files
 ]
