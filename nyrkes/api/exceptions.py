@@ -6,6 +6,8 @@ from nyrkes.api.error_codes import ErrorCode
 
 class CoreAPIException(APIException):
     def __init__(self, code=None, message=None, **kwargs) -> None:
+        super().__init__()
+
         detail = {
             "code": code,
             "message": message,
