@@ -35,7 +35,9 @@ class CookieTokenViewTests(TestCase):
         response = view.finalize_response(request, self.response)
 
         self.assertIsInstance(response.cookies, SimpleCookie)
-        self.assertEqual(response.cookies["refresh_token"]["max-age"], settings.SIMPLE_JWT["AUTH_COOKIE_MAX_AGE"])
+        self.assertEqual(
+            response.cookies["refresh_token"]["max-age"], settings.SIMPLE_JWT["AUTH_COOKIE_REFRESH_MAX_AGE"]
+        )
         self.assertEqual(response.cookies["refresh_token"]["samesite"], settings.SIMPLE_JWT["AUTH_COOKIE_SAME_SITE"])
         self.assertEqual(response.cookies["refresh_token"]["httponly"], settings.SIMPLE_JWT["AUTH_COOKIE_HTTP_ONLY"])
 
@@ -52,7 +54,9 @@ class CookieTokenViewTests(TestCase):
         response = view.finalize_response(request, self.response)
 
         self.assertIsInstance(response.cookies, SimpleCookie)
-        self.assertEqual(response.cookies["refresh_token"]["max-age"], settings.SIMPLE_JWT["AUTH_COOKIE_MAX_AGE"])
+        self.assertEqual(
+            response.cookies["refresh_token"]["max-age"], settings.SIMPLE_JWT["AUTH_COOKIE_REFRESH_MAX_AGE"]
+        )
         self.assertEqual(response.cookies["refresh_token"]["samesite"], settings.SIMPLE_JWT["AUTH_COOKIE_SAME_SITE"])
         self.assertEqual(response.cookies["refresh_token"]["httponly"], settings.SIMPLE_JWT["AUTH_COOKIE_HTTP_ONLY"])
 

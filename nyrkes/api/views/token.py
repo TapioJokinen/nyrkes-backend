@@ -19,7 +19,7 @@ class CookieTokenObtainPairView(TokenObtainPairView):
             response.set_cookie(
                 key=settings.SIMPLE_JWT["AUTH_COOKIE_KEY_REFRESH"],
                 value=response.data["refresh"],
-                max_age=settings.SIMPLE_JWT["AUTH_COOKIE_MAX_AGE"],
+                max_age=settings.SIMPLE_JWT["AUTH_COOKIE_REFRESH_MAX_AGE"],
                 httponly=settings.SIMPLE_JWT["AUTH_COOKIE_HTTP_ONLY"],
                 domain=settings.SIMPLE_JWT["AUTH_COOKIE_DOMAIN"],
                 samesite=settings.SIMPLE_JWT["AUTH_COOKIE_SAME_SITE"],
@@ -31,7 +31,7 @@ class CookieTokenObtainPairView(TokenObtainPairView):
             response.set_cookie(
                 key=settings.SIMPLE_JWT["AUTH_COOKIE_KEY_ACCESS"],
                 value=response.data["access"],
-                max_age=settings.SIMPLE_JWT["AUTH_COOKIE_MAX_AGE"],
+                max_age=settings.SIMPLE_JWT["AUTH_COOKIE_ACCESS_MAX_AGE"],
                 httponly=settings.SIMPLE_JWT["AUTH_COOKIE_HTTP_ONLY"],
                 domain=settings.SIMPLE_JWT["AUTH_COOKIE_DOMAIN"],
                 samesite=settings.SIMPLE_JWT["AUTH_COOKIE_SAME_SITE"],
@@ -48,7 +48,7 @@ class CookieTokenRefreshView(TokenRefreshView):
             response.set_cookie(
                 key=settings.SIMPLE_JWT["AUTH_COOKIE_KEY_REFRESH"],
                 value=response.data["refresh"],
-                max_age=settings.SIMPLE_JWT["AUTH_COOKIE_MAX_AGE"],
+                max_age=settings.SIMPLE_JWT["AUTH_COOKIE_REFRESH_MAX_AGE"],
                 httponly=settings.SIMPLE_JWT["AUTH_COOKIE_HTTP_ONLY"],
                 domain=settings.SIMPLE_JWT["AUTH_COOKIE_DOMAIN"],
                 samesite=settings.SIMPLE_JWT["AUTH_COOKIE_SAME_SITE"],
@@ -60,7 +60,7 @@ class CookieTokenRefreshView(TokenRefreshView):
             response.set_cookie(
                 key=settings.SIMPLE_JWT["AUTH_COOKIE_KEY_ACCESS"],
                 value=response.data["access"],
-                max_age=settings.SIMPLE_JWT["AUTH_COOKIE_MAX_AGE"],
+                max_age=settings.SIMPLE_JWT["AUTH_COOKIE_ACCESS_MAX_AGE"],
                 httponly=settings.SIMPLE_JWT["AUTH_COOKIE_HTTP_ONLY"],
                 domain=settings.SIMPLE_JWT["AUTH_COOKIE_DOMAIN"],
                 samesite=settings.SIMPLE_JWT["AUTH_COOKIE_SAME_SITE"],

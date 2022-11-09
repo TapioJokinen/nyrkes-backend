@@ -132,7 +132,8 @@ SIMPLE_JWT = {
     # These are not part of simplejwt package.
     "AUTH_COOKIE_KEY_REFRESH": "refresh_token",
     "AUTH_COOKIE_KEY_ACCESS": "access_token",
-    "AUTH_COOKIE_MAX_AGE": 3600 * 24 * 7,  # timdelta object, seconds or None.
+    "AUTH_COOKIE_REFRESH_MAX_AGE": 3600 * 24 * 7,  # timdelta object, seconds or None.
+    "AUTH_COOKIE_ACCESS_MAX_AGE": 60 * 15,  # timdelta object, seconds or None.
     "AUTH_COOKIE_DOMAIN": None,  # Cross-domain cookie.
     "AUTH_COOKIE_PATH": "/",  # The path of the auth cookie.
     "AUTH_COOKIE_SECURE": False,  # Whether the auth cookies should be secure (https:// only).
