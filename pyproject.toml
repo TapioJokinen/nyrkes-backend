@@ -40,7 +40,7 @@ disable = [
     "duplicate-code",               # This is judged manually.
     "abstract-method",              # This is judged manually.
     "too-few-public-methods",       # Doesn't work well with models.
-    "invalid-name",                 # For e.g. OrganizationMember = apps.get_model("nyrkes", "OrganizationMember")
-    "wildcard-import",              # Used in settings files
-    "unused-wildcard-import"        # Used in settings files
+    "invalid-name",                 # For e.g. OrganizationMember = apps.get_model("nyrkes", "OrganizationMember").
+    "wildcard-import",              # Used in settings files.
+    "unused-wildcard-import"        # Used in settings files.
 ]
