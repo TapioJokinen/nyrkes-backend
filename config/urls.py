@@ -20,4 +20,6 @@ urlpatterns = [
 if settings.DEBUG:
     dev_urlpatterns = [
         path("admin/", admin.site.urls),
-    ] + urlpatterns
+    ]
+
+    urlpatterns += dev_urlpatterns
