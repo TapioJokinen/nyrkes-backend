@@ -5,9 +5,14 @@ from django.contrib.auth import get_user_model
 from django.http.response import HttpResponse
 from django.test import TestCase
 from django.urls import reverse
+from rest_framework import status
 from rest_framework.test import APIClient, APIRequestFactory
 
-from nyrkes.api.views.token import CookieTokenObtainPairView, CookieTokenRefreshView
+from nyrkes.api.views.token import (
+    CookieTokenBlacklistView,
+    CookieTokenObtainPairView,
+    CookieTokenRefreshView,
+)
 
 
 class CookieTokenViewTests(TestCase):
@@ -63,3 +68,21 @@ class CookieTokenViewTests(TestCase):
         # Jsut for coverage
         self.response.data = {}
         response = view.finalize_response(request, self.response)
+
+    def test_blacklist_finalize_response(self):
+        path = reverse("token_blacklist")
+        request = self.factory.post(path, {}, format="json")
+        view = CookieTokenBlacklistView()
+
+        view.headers = {}
+
+        response = view.finalize_response(request, self.response)
+
+        self.assertIsInstance(response.cookies, SimpleCookie)
+
+    def test_blacklist_post(self):
+        path = reverse("token_blacklist")
+        response = self.client.post(path, {}, format="json", HTTP_ACCEPT="application/json; version=1.0")
+        print(response.content)
+
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)

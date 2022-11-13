@@ -1,6 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.test import TestCase
-from rest_framework.test import APIClient, APIRequestFactory
+from rest_framework.test import APIRequestFactory
 from rest_framework_simplejwt.exceptions import InvalidToken, TokenError
 
 from nyrkes.api.serializers.token import (
@@ -20,7 +20,6 @@ class CookieTokenSerializerTests(TestCase):
 
     def setUp(self) -> None:
         self.factory = APIRequestFactory()
-        self.client = APIClient()
 
     def test_refresh_serializer_refresh_token_invalid(self):
         self.assertEqual(CookieTokenRefreshSerializer.refresh, None)
