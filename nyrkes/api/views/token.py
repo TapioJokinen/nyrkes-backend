@@ -85,8 +85,8 @@ class CookieTokenBlacklistView(TokenBlacklistView):
         try:
             serializer.is_valid(raise_exception=True)
         except Exception:  # pylint: disable=broad-except
-            # Exception might be raised is user manually deleted refresh_token cookie.
-            # We still want to return response so cookies get cleaned.
+            # Exception might be raised if user manually deleted refresh_token cookie.
+            # We still want to return response so cookies get cleaned from the browser.
             pass
 
         return Response(status=status.HTTP_204_NO_CONTENT)
