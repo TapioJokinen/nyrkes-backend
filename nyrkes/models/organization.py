@@ -1,5 +1,3 @@
-from typing import Any
-
 from django.apps import apps
 from django.conf import settings
 from django.db import models
@@ -12,12 +10,11 @@ models.CharField.register_lookup(Length)
 
 
 class OrganizationManager(BaseManager):
-    def create(self, **kwargs: Any) -> "Organization":
+    def create(self, **kwargs):
         """Create Organization.
 
         The Organization owner will also be added as member of the Organization.
         """
-
         org = super().create(**kwargs)
         OrganizationMember = apps.get_model("nyrkes", "OrganizationMember")
         OrganizationMember.objects.create(user=kwargs["owner"], organization=org)
