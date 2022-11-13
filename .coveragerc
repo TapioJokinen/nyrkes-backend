@@ -7,6 +7,7 @@ omit =
     */conf/*
     */tests/*
     */urls.py
+    */admin/*
 
 [report]
 fail_under = 100
