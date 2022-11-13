@@ -13,8 +13,8 @@ class OrganizationAdmin(admin.ModelAdmin):
         "owner",
     )
 
-    def save_model(self, request, obj, form, change) -> None:
+    def save_model(self, request, obj, form, change):
         if not change:
             Organization.objects.create(**form.cleaned_data)
-            return
+            return None
         return super().save_model(request, obj, form, change)
