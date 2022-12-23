@@ -65,3 +65,8 @@ class User(BaseModel, AbstractBaseUser, PermissionsMixin):
 
     def __str__(self) -> str:
         return f"{self.email}"
+
+    def get_orgs(self):
+        from nyrkes.models import Organization
+
+        return Organization.objects.get_user_orgs(self.pk)

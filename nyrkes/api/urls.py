@@ -1,3 +1,7 @@
-# from django.urls import path
+from django.urls import path
 
-urlpatterns = []
+from nyrkes.api.views.user_organizations import UserOrganizations
+
+urlpatterns = [
+    path("organizations/", UserOrganizations.as_view(), name="user_organizations"),
+]

@@ -20,6 +20,9 @@ class OrganizationManager(BaseManager):
         OrganizationMember.objects.create(user=kwargs["owner"], organization=org)
         return org
 
+    def get_user_orgs(self, user_id):
+        return self.filter(members__in=[user_id])
+
 
 class Organization(BaseModel):
     """An Organization represents a group of people."""
