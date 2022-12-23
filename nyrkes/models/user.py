@@ -1,3 +1,4 @@
+from django.apps import apps
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
@@ -67,6 +68,5 @@ class User(BaseModel, AbstractBaseUser, PermissionsMixin):
         return f"{self.email}"
 
     def get_orgs(self):
-        from nyrkes.models import Organization
-
+        Organization = apps.get_model("nyrkes", "organization")
         return Organization.objects.get_user_orgs(self.pk)

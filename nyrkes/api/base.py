@@ -28,6 +28,6 @@ class BaseAPIView(APIView):
 class CamelCaseResponse(Response):
     """Converts response body to camel case."""
 
-    def __init__(self, data=None, status=None, template_name=None, headers=None, exception=False, content_type=None):
-        super().__init__(data, status, template_name, headers, exception, content_type)
-        self.data = converters.obj_to_camel_case(data)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.data = converters.obj_to_camel_case(kwargs["data"])

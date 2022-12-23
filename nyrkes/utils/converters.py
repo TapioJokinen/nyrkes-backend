@@ -7,7 +7,7 @@ def obj_to_camel_case(obj):
     if isinstance(obj, list):
         return [obj_to_camel_case(i) for i in obj]
 
-    new_dict = dict()
+    new_dict = {}
 
     for k, v in obj.items():
         if isinstance(v, (dict, list)):
