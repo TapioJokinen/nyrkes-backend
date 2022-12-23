@@ -15,15 +15,15 @@ from nyrkes.api.serializers.token import (
 )
 
 
-def set_response_cookie(response, type):
+def set_response_cookie(response, token_type):
     key = None
-    if type == "refresh":
+    if token_type == "refresh":
         key = settings.SIMPLE_JWT["AUTH_COOKIE_KEY_REFRESH"]
         max_age = settings.SIMPLE_JWT["AUTH_COOKIE_REFRESH_MAX_AGE"]
-    if type == "access":
+    if token_type == "access":
         key = settings.SIMPLE_JWT["AUTH_COOKIE_KEY_ACCESS"]
         max_age = settings.SIMPLE_JWT["AUTH_COOKIE_ACCESS_MAX_AGE"]
-    value = response.data.pop(type, "") if response.data else ""
+    value = response.data.pop(token_type, "") if response.data else ""
     response.set_cookie(
         key=key,
         value=value,
