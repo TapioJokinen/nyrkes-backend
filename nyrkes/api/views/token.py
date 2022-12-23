@@ -15,31 +15,33 @@ from nyrkes.api.serializers.token import (
 )
 
 
+def set_response_cookie(response, type):
+    key = None
+    if type == "refresh":
+        key = settings.SIMPLE_JWT["AUTH_COOKIE_KEY_REFRESH"]
+        max_age = settings.SIMPLE_JWT["AUTH_COOKIE_REFRESH_MAX_AGE"]
+    if type == "access":
+        key = settings.SIMPLE_JWT["AUTH_COOKIE_KEY_ACCESS"]
+        max_age = settings.SIMPLE_JWT["AUTH_COOKIE_ACCESS_MAX_AGE"]
+    value = response.data.pop(type, "") if response.data else ""
+    response.set_cookie(
+        key=key,
+        value=value,
+        max_age=max_age,
+        httponly=settings.SIMPLE_JWT["AUTH_COOKIE_HTTP_ONLY"],
+        domain=settings.SIMPLE_JWT["AUTH_COOKIE_DOMAIN"],
+        samesite=settings.SIMPLE_JWT["AUTH_COOKIE_SAME_SITE"],
+        secure=settings.SIMPLE_JWT["AUTH_COOKIE_SECURE"],
+    )
+
+
 class CookieTokenObtainPairView(TokenObtainPairView):
     def finalize_response(self, request, response, *args, **kwargs):
         if response.data.get("refresh"):
-            response.set_cookie(
-                key=settings.SIMPLE_JWT["AUTH_COOKIE_KEY_REFRESH"],
-                value=response.data["refresh"],
-                max_age=settings.SIMPLE_JWT["AUTH_COOKIE_REFRESH_MAX_AGE"],
-                httponly=settings.SIMPLE_JWT["AUTH_COOKIE_HTTP_ONLY"],
-                domain=settings.SIMPLE_JWT["AUTH_COOKIE_DOMAIN"],
-                samesite=settings.SIMPLE_JWT["AUTH_COOKIE_SAME_SITE"],
-                secure=settings.SIMPLE_JWT["AUTH_COOKIE_SECURE"],
-            )
-            del response.data["refresh"]
+            set_response_cookie(response, "refresh")
 
         if response.data.get("access"):
-            response.set_cookie(
-                key=settings.SIMPLE_JWT["AUTH_COOKIE_KEY_ACCESS"],
-                value=response.data["access"],
-                max_age=settings.SIMPLE_JWT["AUTH_COOKIE_ACCESS_MAX_AGE"],
-                httponly=settings.SIMPLE_JWT["AUTH_COOKIE_HTTP_ONLY"],
-                domain=settings.SIMPLE_JWT["AUTH_COOKIE_DOMAIN"],
-                samesite=settings.SIMPLE_JWT["AUTH_COOKIE_SAME_SITE"],
-                secure=settings.SIMPLE_JWT["AUTH_COOKIE_SECURE"],
-            )
-            del response.data["access"]
+            set_response_cookie(response, "access")
 
         return super().finalize_response(request, response, *args, **kwargs)
 
@@ -47,28 +49,10 @@ class CookieTokenObtainPairView(TokenObtainPairView):
 class CookieTokenRefreshView(TokenRefreshView):
     def finalize_response(self, request, response, *args, **kwargs):
         if response.data.get("refresh"):
-            response.set_cookie(
-                key=settings.SIMPLE_JWT["AUTH_COOKIE_KEY_REFRESH"],
-                value=response.data["refresh"],
-                max_age=settings.SIMPLE_JWT["AUTH_COOKIE_REFRESH_MAX_AGE"],
-                httponly=settings.SIMPLE_JWT["AUTH_COOKIE_HTTP_ONLY"],
-                domain=settings.SIMPLE_JWT["AUTH_COOKIE_DOMAIN"],
-                samesite=settings.SIMPLE_JWT["AUTH_COOKIE_SAME_SITE"],
-                secure=settings.SIMPLE_JWT["AUTH_COOKIE_SECURE"],
-            )
-            del response.data["refresh"]
+            set_response_cookie(response, "refresh")
 
         if response.data.get("access"):
-            response.set_cookie(
-                key=settings.SIMPLE_JWT["AUTH_COOKIE_KEY_ACCESS"],
-                value=response.data["access"],
-                max_age=settings.SIMPLE_JWT["AUTH_COOKIE_ACCESS_MAX_AGE"],
-                httponly=settings.SIMPLE_JWT["AUTH_COOKIE_HTTP_ONLY"],
-                domain=settings.SIMPLE_JWT["AUTH_COOKIE_DOMAIN"],
-                samesite=settings.SIMPLE_JWT["AUTH_COOKIE_SAME_SITE"],
-                secure=settings.SIMPLE_JWT["AUTH_COOKIE_SECURE"],
-            )
-            del response.data["access"]
+            set_response_cookie(response, "access")
         return super().finalize_response(request, response, *args, **kwargs)
 
     serializer_class = CookieTokenRefreshSerializer
@@ -92,25 +76,8 @@ class CookieTokenBlacklistView(TokenBlacklistView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
     def finalize_response(self, request, response, *args, **kwargs):
-        response.set_cookie(
-            key=settings.SIMPLE_JWT["AUTH_COOKIE_KEY_REFRESH"],
-            value="",
-            max_age=settings.SIMPLE_JWT["AUTH_COOKIE_REFRESH_MAX_AGE"],
-            httponly=settings.SIMPLE_JWT["AUTH_COOKIE_HTTP_ONLY"],
-            domain=settings.SIMPLE_JWT["AUTH_COOKIE_DOMAIN"],
-            samesite=settings.SIMPLE_JWT["AUTH_COOKIE_SAME_SITE"],
-            secure=settings.SIMPLE_JWT["AUTH_COOKIE_SECURE"],
-        )
-
-        response.set_cookie(
-            key=settings.SIMPLE_JWT["AUTH_COOKIE_KEY_ACCESS"],
-            value="",
-            max_age=settings.SIMPLE_JWT["AUTH_COOKIE_ACCESS_MAX_AGE"],
-            httponly=settings.SIMPLE_JWT["AUTH_COOKIE_HTTP_ONLY"],
-            domain=settings.SIMPLE_JWT["AUTH_COOKIE_DOMAIN"],
-            samesite=settings.SIMPLE_JWT["AUTH_COOKIE_SAME_SITE"],
-            secure=settings.SIMPLE_JWT["AUTH_COOKIE_SECURE"],
-        )
+        set_response_cookie(response, "refresh")
+        set_response_cookie(response, "access")
         return super().finalize_response(request, response, *args, **kwargs)
 
     serializer_class = CookieTokenBlacklistSerializer

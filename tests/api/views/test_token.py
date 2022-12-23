@@ -83,6 +83,5 @@ class CookieTokenViewTests(TestCase):
     def test_blacklist_post(self):
         path = reverse("token_blacklist")
         response = self.client.post(path, {}, format="json", HTTP_ACCEPT="application/json; version=1.0")
-        print(response.content)
 
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
