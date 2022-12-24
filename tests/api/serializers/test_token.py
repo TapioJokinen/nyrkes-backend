@@ -1,4 +1,3 @@
-from django.contrib.auth import get_user_model
 from django.test import TestCase
 from rest_framework.test import APIRequestFactory
 from rest_framework_simplejwt.exceptions import InvalidToken, TokenError
@@ -8,15 +7,13 @@ from nyrkes.api.serializers.token import (
     CookieTokenRefreshSerializer,
     CookieTokenVerifySerializer,
 )
+from tests.factories import UserFactory
 
 
 class CookieTokenSerializerTests(TestCase):
     @classmethod
     def setUpTestData(cls) -> None:
-        cls.EMAIL = "foo@bar.com"
-        cls.PASSWORD = "foobarz"
-        User = get_user_model()
-        cls.user = User.objects.create_user(email=cls.EMAIL, password=cls.PASSWORD, first_name="foo", last_name="bar")
+        cls.user = UserFactory()
 
     def setUp(self) -> None:
         self.factory = APIRequestFactory()

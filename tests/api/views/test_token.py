@@ -1,7 +1,6 @@
 from http.cookies import SimpleCookie
 
 from django.conf import settings
-from django.contrib.auth import get_user_model
 from django.http.response import HttpResponse
 from django.test import TestCase
 from django.urls import reverse
@@ -13,6 +12,7 @@ from nyrkes.api.views.token import (
     CookieTokenObtainPairView,
     CookieTokenRefreshView,
 )
+from tests.factories import UserFactory
 
 
 class CookieTokenViewTests(TestCase):
@@ -20,8 +20,7 @@ class CookieTokenViewTests(TestCase):
     def setUpTestData(cls) -> None:
         cls.EMAIL = "foo@bar.com"
         cls.PASSWORD = "foobarz"
-        User = get_user_model()
-        cls.user = User.objects.create_user(email=cls.EMAIL, password=cls.PASSWORD, first_name="foo", last_name="bar")
+        cls.user = UserFactory()
 
     def setUp(self) -> None:
         self.factory = APIRequestFactory()

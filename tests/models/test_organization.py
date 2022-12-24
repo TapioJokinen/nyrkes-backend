@@ -1,16 +1,15 @@
-from django.contrib.auth import get_user_model
 from django.db.utils import IntegrityError
 from django.test import TestCase
 
 from nyrkes.models.organization import Organization
 from nyrkes.models.organizationmember import OrganizationMember
+from tests.factories import UserFactory
 
 
 class OrganizationTests(TestCase):
     @classmethod
     def setUpTestData(cls) -> None:
-        User = get_user_model()
-        cls.user = User.objects.create_user(email="foo@bar.com", password="foobarz", first_name="foo", last_name="bar")
+        cls.user = UserFactory()
 
     def test_max_lengths(self) -> None:
         name_length = Organization._meta.get_field("name").max_length  # pylint: disable=protected-access, no-member

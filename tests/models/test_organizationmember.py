@@ -1,17 +1,14 @@
-from django.contrib.auth import get_user_model
 from django.test import TestCase
 
 from nyrkes.models.organization import Organization
 from nyrkes.models.organizationmember import OrganizationMember
+from tests.factories import UserFactory
 
 
 class OrganizationMemberTests(TestCase):
     @classmethod
     def setUpTestData(cls) -> None:
-        cls.User = get_user_model()
-        cls.user = cls.User.objects.create_user(
-            email="foo@bar.com", password="foobarz", first_name="foo", last_name="bar"
-        )
+        cls.user = UserFactory()
         cls.org = Organization.objects.create(owner=cls.user, name="FooBarz")
 
     def test_string_representation(self) -> None:
