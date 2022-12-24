@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from nyrkes.api.exceptions import APINotImplemented
-from nyrkes.utils import converters
+from nyrkes.utils.converters import obj_to_camel_case
 
 
 class BaseAPIView(APIView):
@@ -30,4 +30,4 @@ class CamelCaseResponse(Response):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.data = converters.obj_to_camel_case(kwargs["data"])
+        self.data = obj_to_camel_case(kwargs["data"])
