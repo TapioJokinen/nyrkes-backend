@@ -16,6 +16,9 @@ jobs:
         echo POSTGRES_USER=admin >> .env
         echo POSTGRES_PASSWORD=foobar12345 >> .env
         echo POSTGRES_HOST=postgres_ci >> .env
+        echo DJANGO_REDIS_HOST=redis_local >> .env
+        echo DJANGO_REDIS_USERNAME=default >> .env
+        echo DJANGO_REDIS_PASSWORD=verysecurepassword >> .env
     - name: Build images
       run: docker-compose -f .github/docker-compose.ci.yml up --build -d
     - name: Run migrations
