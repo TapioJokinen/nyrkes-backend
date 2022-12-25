@@ -65,6 +65,13 @@ DATABASES = {
     }
 }
 
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": f"redis://{env('DJANGO_REDIS_USERNAME')}:{env('DJANGO_REDIS_PASSWORD')}@{env('DJANGO_REDIS_HOST')}:6379",
+    }
+}
+
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",

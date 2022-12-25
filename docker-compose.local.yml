@@ -46,6 +46,24 @@ services:
       - postgres_local
     restart: unless-stopped
 
+  redis_local:
+    container_name: redis_local
+    image: redis:7.0.4-alpine
+    volumes:
+      - ./config/settings/redis.conf:/usr/local/etc/redis/redis.conf
+      - redis_local:/bitnami/redis/data
+    ports:
+      - 6379:6379
+    env_file:
+      - .env.local
+    logging:
+      driver: "none"
+    depends_on:
+      - postgres_local
+    restart: unless-stopped
+    command: redis-server /usr/local/etc/redis/redis.conf
+
 volumes:
   postgres_local:
   pgadmin4_local:
+  redis_local:
