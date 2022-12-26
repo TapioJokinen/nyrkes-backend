@@ -8,6 +8,7 @@ omit =
     */tests/*
     */urls.py
     */admin/*
+    */tasks.py
 
 [report]
 fail_under = 100
