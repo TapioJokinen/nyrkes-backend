@@ -1,9 +1,14 @@
 import os
+import sys
 from datetime import timedelta
 
 from config.env import BASE_DIR, env
 
 env.read_env(os.path.join(BASE_DIR, os.environ["ENV_FILE"]))
+
+ENVIRONMENT = env("NYRKES_ENVIRONMENT")
+
+TESTING = len(sys.argv) > 1 and sys.argv[1] == "test"
 
 LOCAL_APPS = [
     "nyrkes",
@@ -13,6 +18,7 @@ THIRD_PARTY_APPS = [
     "corsheaders",
     "rest_framework",
     "rest_framework_simplejwt.token_blacklist",
+    "django_celery_results",
 ]
 
 INSTALLED_APPS = [
@@ -64,6 +70,14 @@ DATABASES = {
         "PORT": "5432",
     }
 }
+
+CELERY_BROKER_URL = (
+    f"redis://{env('DJANGO_REDIS_USERNAME')}:{env('DJANGO_REDIS_PASSWORD')}@{env('DJANGO_REDIS_HOST')}:6379"
+)
+
+CELERY_RESULT_BACKEND = "django-db"
+
+CELERY_CACHE_BACKEND = "default"
 
 CACHES = {
     "default": {
@@ -144,3 +158,7 @@ SIMPLE_JWT = {
     "AUTH_COOKIE_HTTP_ONLY": True,  # True in order to prevent client-side JavaScript from having access to the cookie.
     "AUTH_COOKIE_SAME_SITE": "Strict",  # Whether to set the flag restricting cookie leaks on cross-site requests. This can be 'Lax', 'Strict', or None to disable the flag.
 }
+
+MEDIA_URL = "/media/"
+
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")

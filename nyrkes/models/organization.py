@@ -5,6 +5,7 @@ from django.db.models import Q
 from django.db.models.functions import Length
 
 from nyrkes.models.base import BaseManager, BaseModel
+from nyrkes.tasks import resize_img
 
 models.CharField.register_lookup(Length)
 
@@ -48,6 +49,8 @@ class Organization(BaseModel):
         through_fields=("organization", "user"),
     )
 
+    logo = models.ImageField(upload_to="logos", default=None)
+
     objects = OrganizationManager()
 
     class Meta:
@@ -57,3 +60,11 @@ class Organization(BaseModel):
 
     def __str__(self) -> str:
         return f"{self.name}"
+
+    def save(self, *args, **kwargs) -> None:
+        super().save(*args, **kwargs)
+
+        # We get database connection error if celery-task is run during testing
+        # therefore disable celery-task while testing.
+        if not settings.TESTING:  # pragma: no cover
+            resize_img.delay(self.logo.path)  # pylint: disable=no-member

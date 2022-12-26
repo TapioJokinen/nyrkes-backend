@@ -63,6 +63,24 @@ services:
     restart: unless-stopped
     command: redis-server /usr/local/etc/redis/redis.conf
 
+  celery:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.local
+    volumes:
+      - .:/usr/nyrkes-backend
+    env_file:
+      - .env.local
+    environment:
+      - NYRKES_ENVIRONMENT=local
+      - ENV_FILE=.env.local
+    restart: always
+    command: celery -A nyrkes worker -l info
+    depends_on:
+      - postgres_local
+      - redis_local
+      - nyrkes
+
 volumes:
   postgres_local:
   pgadmin4_local:
