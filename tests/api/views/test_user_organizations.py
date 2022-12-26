@@ -14,6 +14,7 @@ class UserOrganizationTests(TestCase):
         cls.org = OrganizationFactory(owner=cls.user)
 
     def setUp(self) -> None:
+        super().setUp()
         self.factory = APIRequestFactory()
         self.view = UserOrganizations.as_view()
 
@@ -34,6 +35,7 @@ class UserOrganizationTests(TestCase):
             "name",
             "altName",
             "ownerId",
+            "logo",
         ]
 
         for k in response.data[0].keys():

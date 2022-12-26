@@ -8,6 +8,7 @@ from nyrkes.api.exceptions import APINotImplemented
 
 class BaseAPIViewTests(TestCase):
     def setUp(self) -> None:
+        super().setUp()
         self.factory = APIRequestFactory()
 
     def test_permission_classes(self):

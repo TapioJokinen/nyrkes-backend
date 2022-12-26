@@ -25,6 +25,7 @@ def mock_get_raw_token_none(self, header):  # pylint: disable=unused-argument
 
 class CookieAuthenticationTests(TestCase):
     def setUp(self) -> None:
+        super().setUp()
         self.factory = APIRequestFactory()
 
     def test_header_is_none(self):

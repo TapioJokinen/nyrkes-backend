@@ -18,11 +18,13 @@ from tests.factories import UserFactory
 class CookieTokenViewTests(TestCase):
     @classmethod
     def setUpTestData(cls) -> None:
+        super().setUpTestData()
         cls.EMAIL = "foo@bar.com"
         cls.PASSWORD = "foobarz"
         cls.user = UserFactory()
 
     def setUp(self) -> None:
+        super().setUp()
         self.factory = APIRequestFactory()
         self.client = APIClient()
 

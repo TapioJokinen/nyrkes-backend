@@ -13,6 +13,7 @@ from tests.factories import UserFactory
 class CookieTokenSerializerTests(TestCase):
     @classmethod
     def setUpTestData(cls) -> None:
+        super().setUpTestData()
         cls.user = UserFactory()
 
     def setUp(self) -> None:

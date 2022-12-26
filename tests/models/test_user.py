@@ -8,6 +8,7 @@ from nyrkes.utils.constants import Errors
 class UserManagerTests(TestCase):
     @classmethod
     def setUpTestData(cls) -> None:
+        super().setUpTestData()
         cls.User = get_user_model()
 
     def test_create_user(self) -> None:

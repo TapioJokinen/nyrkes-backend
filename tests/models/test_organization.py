@@ -9,6 +9,7 @@ from tests.factories import UserFactory
 class OrganizationTests(TestCase):
     @classmethod
     def setUpTestData(cls) -> None:
+        super().setUpTestData()
         cls.user = UserFactory()
 
     def test_max_lengths(self) -> None:
